@@ -4,8 +4,8 @@ assert() {
   input="$2"
 
   ./9cc "$input" > tmp.s
-  cc -o test2 tmp.s
-  ./test2
+  cc -o tmp tmp.s
+  ./tmp
   actual="$?"
 
   if [ "$actual" = "$expected" ]; then
@@ -13,10 +13,11 @@ assert() {
   else
     echo "$input => $expected expected, but got $actual"
     exit 1
-  fi
+  
 }
 
 assert 0 0
 assert 42 42
+assert 21 "5+20-4"
 
 echo OK
